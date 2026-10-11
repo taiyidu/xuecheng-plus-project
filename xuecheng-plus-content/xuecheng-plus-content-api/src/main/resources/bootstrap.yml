@@ -1,0 +1,16 @@
+server:
+  servlet:
+    context-path: /content
+  port: 63040
+#微服务配置
+spring:
+  application:
+    name: content-api
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://8.133.177.47:10086/xcplus_content148?serverTimezone=UTC&userUnicode=true&useSSL=false&
+    username: root
+    password: 200710
+# 日志文件配置路径
+logging:
+  config: classpath:log4j2-dev.xml
