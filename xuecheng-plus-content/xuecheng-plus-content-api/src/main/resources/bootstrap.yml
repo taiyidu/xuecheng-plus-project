@@ -8,9 +8,21 @@ spring:
     name: content-api
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://8.133.177.47:10086/xcplus_content148?serverTimezone=UTC&userUnicode=true&useSSL=false&
+    url: jdbc:mysql://localhost:3306/xuecheng?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
     username: root
     password: 200710
+swagger:
+  title: "学成在线内容管理系统"
+  description: "内容系统管理系统对课程相关信息进行管理"
+  base-package: com.xuecheng.content
+  enabled: true
+  version: 1.0.0
 # 日志文件配置路径
+#logging:
+#  config: classpath:log4j2-dev.xml
+
 logging:
-  config: classpath:log4j2-dev.xml
+  level:
+    root: info  # 全局根日志：只输出INFO及以上，屏蔽DEBUG
+    org.springframework.web: info # 关闭springmvc的debug（就是你日志里DispatcherServlet那些DEBUG）
+    com.xuecheng: info # 自己项目包
