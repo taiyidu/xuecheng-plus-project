@@ -2,6 +2,8 @@ package com.xuecheng.content.api;
 
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
+import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.QueryCourseParamsDto;
 import com.xuecheng.content.model.po.CourseBase;
 import com.xuecheng.content.service.CourseBaseInfoService;
@@ -19,18 +21,31 @@ import org.springframework.web.bind.annotation.*;
  */
 @RestController
 @Slf4j
-@RequestMapping("/course/list")
+@RequestMapping("/course")
 @RequiredArgsConstructor
 public class CourseBaseInfoController {
 
     private final CourseBaseInfoService courseBaseInfoService;
 
 
-    @RequestMapping
+    @RequestMapping("/list")
     public PageResult<CourseBase> list(PageParams pageParams, @RequestBody(required = false) QueryCourseParamsDto queryCourseParamsDto){
         log.info("pageParams:{}", pageParams);
         log.info("queryCourseParams:{}", queryCourseParamsDto);
         PageResult<CourseBase> pageResult = courseBaseInfoService.queryCourseBaseList(pageParams, queryCourseParamsDto);
         return pageResult;
+    }
+    /**
+     * 添加课程
+     * @param addCourseDto
+     * @return
+     */
+    @PostMapping
+    public CourseBaseInfoDto addCourseBaseInfo(@RequestBody AddCourseDto addCourseDto) {
+        log.info("addCourseBaseInfo:{}", addCourseDto);
+        //所属机构的Id 因为后面会从拦截器中获取到id现在暂时获取不到id 所以现在先写死
+        // TODO 在本地的线程中获取机构的ID
+        Long companyId = 1111111111L;
+        return courseBaseInfoService.addCourseBaseInfo(addCourseDto,companyId);
     }
 }

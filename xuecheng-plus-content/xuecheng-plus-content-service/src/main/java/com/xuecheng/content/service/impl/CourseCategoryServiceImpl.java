@@ -2,12 +2,21 @@ package com.xuecheng.content.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import com.xuecheng.content.mapper.CourseCategoryMapper;
+import com.xuecheng.content.model.dto.AddCourseDto;
+import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.CourseCategoryTreeDto;
+import com.xuecheng.content.model.po.CourseBase;
 import com.xuecheng.content.model.po.CourseCategory;
+import com.xuecheng.content.model.po.CourseMarket;
 import com.xuecheng.content.service.CourseCategoryService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
