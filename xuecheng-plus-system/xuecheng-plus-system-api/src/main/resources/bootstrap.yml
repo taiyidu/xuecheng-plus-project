@@ -1,0 +1,30 @@
+server:
+  servlet:
+    context-path: /system
+  port: 63110
+#微服务配置
+spring:
+  application:
+    name: system-api
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/xc402_system?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+    username: root
+    password: 200710
+## 日志文件配置路径
+#logging:
+#  config: classpath:log4j2-dev.xml
+
+# swagger 文档配置
+swagger:
+  title: "学成在线系统管理"
+  description: "系统管理接口"
+  base-package: com.xuecheng.system
+  enabled: true
+  version: 1.0.0
+
+logging:
+  level:
+    root: info  # 全局根日志：只输出INFO及以上，屏蔽DEBUG
+    org.springframework.web: info # 关闭springmvc的debug（就是你日志里DispatcherServlet那些DEBUG）
+    com.xuecheng: info # 自己项目包

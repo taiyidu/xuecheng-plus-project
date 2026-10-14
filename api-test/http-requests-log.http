@@ -1,0 +1,10 @@
+POST {{content_host}}/content/course/list?pageNo=1&pageSize=2
+Content-Type: application/json
+
+{
+  "courseName": "java"
+}
+
+<> 2026-10-12T214604.200.json
+
+###
