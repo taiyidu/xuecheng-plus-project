@@ -22,7 +22,7 @@ public class CourseCategoryController {
     public List<CourseCategoryTreeDto> getCourseCategoryTreeDto() {
         log.info("call getCourseCategoryTreeDto");
         List<CourseCategoryTreeDto> courseCategoryTreeDto = courseCategoryService.getCourseCategoryTreeDto();
-        log.info("getCourseCategoryTreeDto result:{}", courseCategoryTreeDto);
+//        log.info("getCourseCategoryTreeDto result:{}", courseCategoryTreeDto);
         return courseCategoryTreeDto;
     }
 }

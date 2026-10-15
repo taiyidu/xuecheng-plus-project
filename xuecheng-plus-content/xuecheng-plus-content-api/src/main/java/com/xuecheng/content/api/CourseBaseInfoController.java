@@ -13,6 +13,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 /**
  * @description 课程信息编辑接口
  * @author Mr.M
@@ -41,7 +43,7 @@ public class CourseBaseInfoController {
      * @return
      */
     @PostMapping
-    public CourseBaseInfoDto addCourseBaseInfo(@RequestBody AddCourseDto addCourseDto) {
+    public CourseBaseInfoDto addCourseBaseInfo(@Valid @RequestBody AddCourseDto addCourseDto) {
         log.info("addCourseBaseInfo:{}", addCourseDto);
         //所属机构的Id 因为后面会从拦截器中获取到id现在暂时获取不到id 所以现在先写死
         // TODO 在本地的线程中获取机构的ID

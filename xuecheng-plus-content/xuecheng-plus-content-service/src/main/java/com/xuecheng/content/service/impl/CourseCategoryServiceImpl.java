@@ -57,7 +57,7 @@ public class CourseCategoryServiceImpl implements CourseCategoryService {
                 }
             }
         }
-        log.info("rootNodes:{}", rootNodes);
+//        log.info("rootNodes:{}", rootNodes);
         return rootNodes;
     }
 }

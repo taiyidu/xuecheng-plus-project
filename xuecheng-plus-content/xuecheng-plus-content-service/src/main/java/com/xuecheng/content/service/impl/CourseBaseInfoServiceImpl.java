@@ -63,41 +63,41 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     @Override
     @Transactional
     public CourseBaseInfoDto addCourseBaseInfo(AddCourseDto addCourseDto, Long companyId) {
-        //合法性校验
-        if (StringUtils.isBlank(addCourseDto.getName())) {
-//            throw new RuntimeException("课程名称为空");
-            XueChengPlusException.cast("课程名称为空");
-        }
-
-        if (StringUtils.isBlank(addCourseDto.getMt())) {
-//            throw new RuntimeException("课程分类为空");
-            XueChengPlusException.cast("课程分类为空");
-        }
-
-        if (StringUtils.isBlank(addCourseDto.getSt())) {
-//            throw new RuntimeException("课程分类为空");
-            XueChengPlusException.cast("课程分类为空");
-        }
-
-        if (StringUtils.isBlank(addCourseDto.getGrade())) {
-//            throw new RuntimeException("课程等级为空");
-            XueChengPlusException.cast("课程等级为空");
-        }
-
-        if (StringUtils.isBlank(addCourseDto.getTeachmode())) {
-//            throw new RuntimeException("教育模式为空");
-            XueChengPlusException.cast("教育模式为空");
-        }
-
-        if (StringUtils.isBlank(addCourseDto.getUsers())) {
-//            throw new RuntimeException("适应人群为空");
-            XueChengPlusException.cast("适应人群为空");
-        }
-
-        if (StringUtils.isBlank(addCourseDto.getCharge())) {
-//            throw new RuntimeException("收费规则为空");
-            XueChengPlusException.cast("收费规则为空");
-        }
+//        //合法性校验
+//        if (StringUtils.isBlank(addCourseDto.getName())) {
+////            throw new RuntimeException("课程名称为空");
+//            XueChengPlusException.cast("课程名称为空");
+//        }
+//
+//        if (StringUtils.isBlank(addCourseDto.getMt())) {
+////            throw new RuntimeException("课程分类为空");
+//            XueChengPlusException.cast("课程分类为空");
+//        }
+//
+//        if (StringUtils.isBlank(addCourseDto.getSt())) {
+////            throw new RuntimeException("课程分类为空");
+//            XueChengPlusException.cast("课程分类为空");
+//        }
+//
+//        if (StringUtils.isBlank(addCourseDto.getGrade())) {
+////            throw new RuntimeException("课程等级为空");
+//            XueChengPlusException.cast("课程等级为空");
+//        }
+//
+//        if (StringUtils.isBlank(addCourseDto.getTeachmode())) {
+////            throw new RuntimeException("教育模式为空");
+//            XueChengPlusException.cast("教育模式为空");
+//        }
+//
+//        if (StringUtils.isBlank(addCourseDto.getUsers())) {
+////            throw new RuntimeException("适应人群为空");
+//            XueChengPlusException.cast("适应人群为空");
+//        }
+//
+//        if (StringUtils.isBlank(addCourseDto.getCharge())) {
+////            throw new RuntimeException("收费规则为空");
+//            XueChengPlusException.cast("收费规则为空");
+//        }
         //新增CourseBase对象
         CourseBase courseBaseNew = new CourseBase();
         //将填写的课程信息赋值给新增对象
