@@ -2,9 +2,7 @@ package com.xuecheng.content.api;
 
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
-import com.xuecheng.content.model.dto.AddCourseDto;
-import com.xuecheng.content.model.dto.CourseBaseInfoDto;
-import com.xuecheng.content.model.dto.QueryCourseParamsDto;
+import com.xuecheng.content.model.dto.*;
 import com.xuecheng.content.model.po.CourseBase;
 import com.xuecheng.content.service.CourseBaseInfoService;
 import io.swagger.annotations.Api;
@@ -50,4 +48,27 @@ public class CourseBaseInfoController {
         Long companyId = 1111111111L;
         return courseBaseInfoService.addCourseBaseInfo(addCourseDto,companyId);
     }
+
+    /**
+     * 根据课程id获取课程基本信息
+     * @param courseId 课程id
+     * @return market and course base info
+     */
+    @GetMapping("/{courseId}")
+    public ShowCourseDto getCourseBaseInfo(@PathVariable Long courseId) {
+        log.info("getCourseBaseInfo:{}", courseId);
+        return courseBaseInfoService.getCourseBaseInfoById(courseId);
+    }
+
+    /**
+     * 修改课程信息接口
+     */
+    @PutMapping
+    public ShowCourseDto updateCourseInfo(@Valid @RequestBody UpdateCourseDto updateCourseDto){
+        log.info("updateCourseInfo:{}", updateCourseDto);
+        // TODO 在本地的线程中获取机构的ID
+        Long companyId = 1111111111L;
+        return courseBaseInfoService.updateCourseInfo(companyId,updateCourseDto);
+    }
+
 }

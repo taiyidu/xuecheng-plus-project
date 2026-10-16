@@ -2,10 +2,10 @@ package com.xuecheng.content.service;
 
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
-import com.xuecheng.content.model.dto.AddCourseDto;
-import com.xuecheng.content.model.dto.CourseBaseInfoDto;
-import com.xuecheng.content.model.dto.QueryCourseParamsDto;
+import com.xuecheng.content.model.dto.*;
 import com.xuecheng.content.model.po.CourseBase;
+
+import javax.validation.Valid;
 
 /**
  * 课程基本信息 服务类
@@ -21,4 +21,7 @@ public interface CourseBaseInfoService {
 
     CourseBaseInfoDto addCourseBaseInfo(AddCourseDto addCourseDto, Long companyId);
 
+    ShowCourseDto getCourseBaseInfoById(Long courseId);
+
+    ShowCourseDto updateCourseInfo(Long companyId,@Valid UpdateCourseDto updateCourseDto);
 }
