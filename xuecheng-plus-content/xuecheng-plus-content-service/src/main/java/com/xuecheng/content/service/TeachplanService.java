@@ -10,4 +10,10 @@ public interface TeachplanService {
     List<TeachplanDto> showTeachplanList(Long courseId);
 
     void saveTeachplan(SaveTeachplan saveTeachplan);
+
+    void deleteTeachplan(Long id);
+
+    void moveDown(Long id);
+
+    void moveUp(Long id);
 }

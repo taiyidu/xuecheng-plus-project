@@ -5,13 +5,9 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.xuecheng.base.exception.XueChengPlusException;
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
-import com.xuecheng.content.mapper.CourseBaseMapper;
-import com.xuecheng.content.mapper.CourseCategoryMapper;
-import com.xuecheng.content.mapper.CourseMarketMapper;
+import com.xuecheng.content.mapper.*;
 import com.xuecheng.content.model.dto.*;
-import com.xuecheng.content.model.po.CourseBase;
-import com.xuecheng.content.model.po.CourseCategory;
-import com.xuecheng.content.model.po.CourseMarket;
+import com.xuecheng.content.model.po.*;
 import com.xuecheng.content.service.CourseBaseInfoService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -33,6 +29,10 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
     private final CourseMarketMapper courseMarketMapper;
 
     private final CourseCategoryMapper courseCategoryMapper;
+
+    private final TeachplanMapper teachplanMapper;
+
+    private final CourseTeacherMapper courseTeacherMapper;
 
     @Override
     public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto) {
@@ -216,5 +216,28 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         BeanUtils.copyProperties(courseInfo, courseBaseInfo);
         BeanUtils.copyProperties(courseMarketInfo, courseBaseInfo);
         return courseBaseInfo;
+    }
+
+    @Override
+    public void deleteCourseInfo(Long courseId, Long companyId) {
+        CourseBase courseBase = courseBaseMapper.selectById(courseId);
+        if(courseBase == null || !courseBase.getCompanyId().equals(companyId)){
+            throw new RuntimeException("无权限删除课程");
+        }
+        if(!courseBase.getStatus().equals("203001")){
+            throw new RuntimeException("只有未提交才可以删除");
+        }
+        //delete course info
+        courseBaseMapper.deleteById(courseId);
+        //delete course market info
+        courseMarketMapper.deleteById(courseId);
+        //delete teach plan
+        LambdaQueryWrapper<Teachplan> teachplanLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        teachplanLambdaQueryWrapper.eq(Teachplan::getCourseId, courseId);
+        teachplanMapper.delete(teachplanLambdaQueryWrapper);
+        //delete course teacher info
+        LambdaQueryWrapper<CourseTeacher> courseTeacherLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        courseTeacherLambdaQueryWrapper.eq(CourseTeacher::getCourseId, courseId);
+        courseTeacherMapper.delete(courseTeacherLambdaQueryWrapper);
     }
 }

@@ -45,7 +45,7 @@ public class CourseBaseInfoController {
         log.info("addCourseBaseInfo:{}", addCourseDto);
         //所属机构的Id 因为后面会从拦截器中获取到id现在暂时获取不到id 所以现在先写死
         // TODO 在本地的线程中获取机构的ID
-        Long companyId = 1111111111L;
+        Long companyId = 1232141425L;
         return courseBaseInfoService.addCourseBaseInfo(addCourseDto,companyId);
     }
 
@@ -67,8 +67,13 @@ public class CourseBaseInfoController {
     public ShowCourseDto updateCourseInfo(@Valid @RequestBody UpdateCourseDto updateCourseDto){
         log.info("updateCourseInfo:{}", updateCourseDto);
         // TODO 在本地的线程中获取机构的ID
-        Long companyId = 1111111111L;
+        Long companyId = 1232141425L;
         return courseBaseInfoService.updateCourseInfo(companyId,updateCourseDto);
     }
-
+    @DeleteMapping("{courseId}")
+    public void deleteCourseInfo(@PathVariable Long courseId){
+        log.info("deleteCourseInfo:{}", courseId);
+        Long companyId = 1232141425L;
+        courseBaseInfoService.deleteCourseInfo(courseId,companyId);
+    }
 }
