@@ -1,28 +1,52 @@
-server:
-  servlet:
-    context-path: /content
-  port: 63040
-#微服务配置
 spring:
   application:
     name: content-api
-  datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/xuecheng?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
-    username: root
-    password: 200710
-swagger:
-  title: "学成在线内容管理系统"
-  description: "内容系统管理系统对课程相关信息进行管理"
-  base-package: com.xuecheng.content
-  enabled: true
-  version: 1.0.0
-# 日志文件配置路径
-#logging:
-#  config: classpath:log4j2-dev.xml
+  cloud:
+    nacos:
+      server-addr: localhost:8848
+      discovery:
+        namespace: dev
+        group: xuecheng-plus-project
+      config:
+        namespace: dev
+        group: xuecheng-plus-project
+        file-extension: yaml
+        refresh-enabled: true
+        # 共享配置数组
+        shared-configs:
+            - data-id: mysql.yaml
+              group: xuecheng-plus-project
+              refresh: true  # 开启动态刷新，nacos改配置不用重启项目
+            - data-id: log.yaml
+              group: xuecheng-plus-project
+              refresh: true
 
-logging:
-  level:
-    root: info  # 全局根日志：只输出INFO及以上，屏蔽DEBUG
-    org.springframework.web: info # 关闭springmvc的debug（就是你日志里DispatcherServlet那些DEBUG）
-    com.xuecheng: info # 自己项目包
+
+#  datasource:
+#    driver-class-name: com.mysql.cj.jdbc.Driver
+#    url: jdbc:mysql://localhost:3306/xuecheng?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai&allowPublicKeyRetrieval=true
+#    username: root
+#    password: 200710
+#  profiles:
+#    active: dev # 环境名
+#server:
+#  servlet:
+#    context-path: /content
+#  port: 63040
+##微服务配置
+#spring:
+#  application:
+#    name: content-api
+
+#swagger:
+#  title: "学成在线内容管理系统"
+#  description: "内容系统管理系统对课程相关信息进行管理"
+#  base-package: com.xuecheng.content
+#  enabled: true
+#  version: 1.0.0
+
+#logging:
+#  level:
+#    root: info  # 全局根日志：只输出INFO及以上，屏蔽DEBUG
+#    org.springframework.web: info # 关闭springmvc的debug（就是你日志里DispatcherServlet那些DEBUG）
+#    com.xuecheng: info # 自己项目包
