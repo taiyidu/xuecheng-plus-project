@@ -1,6 +1,7 @@
 package com.xuecheng.media.model.po;
 
 import com.baomidou.mybatisplus.annotation.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -15,6 +16,7 @@ import java.time.LocalDateTime;
  */
 @Data
 @TableName("media_files")
+@Builder
 public class MediaFiles implements Serializable {
 
     private static final long serialVersionUID = 1L;

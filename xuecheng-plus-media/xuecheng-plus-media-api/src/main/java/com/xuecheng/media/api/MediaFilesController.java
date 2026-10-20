@@ -34,9 +34,10 @@ public class MediaFilesController {
     }
 
     @RequestMapping(value = "/upload/coursefile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile upload) throws IOException {
+    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile upload) throws Exception {
         log.info("upload file interface. file name:{}",upload.getOriginalFilename());
-        UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(upload);
+        Long companyId = 1232141425L;
+        UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(upload,companyId);
         return uploadFileResultDto;
     }
 }

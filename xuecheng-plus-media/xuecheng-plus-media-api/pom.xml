@@ -91,6 +91,11 @@
             <artifactId>swagger-spring-boot-starter</artifactId>
         </dependency>
 
+        <!-- MySQL 数据库驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
 
     </dependencies>
 

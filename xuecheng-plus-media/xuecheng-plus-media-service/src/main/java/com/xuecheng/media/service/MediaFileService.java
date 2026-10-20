@@ -28,5 +28,5 @@ public interface MediaFileService {
 */
     PageResult<MediaFiles> queryMediaFiels(Long companyId,PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
 
-    UploadFileResultDto uploadFile(MultipartFile upload);
+    UploadFileResultDto uploadFile(MultipartFile upload,Long companyId) throws Exception;
 }
