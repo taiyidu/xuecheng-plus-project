@@ -6,9 +6,13 @@ import com.xuecheng.base.model.RestResponse;
 import com.xuecheng.media.model.dto.QueryMediaParamsDto;
 import com.xuecheng.media.model.dto.UploadFileResultDto;
 import com.xuecheng.media.model.po.MediaFiles;
+import io.minio.errors.*;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
+import java.security.InvalidKeyException;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 /**
@@ -52,5 +56,5 @@ public interface MediaFileService {
 
     RestResponse uploadchunk(MultipartFile file, String fileMd5, int chunk);
 
-    RestResponse mergechunks(String fileMd5, String fileName, int chunkTotal);
+    RestResponse mergechunks(String fileMd5, String fileName, int chunkTotal, Long companyId) throws ServerException, InsufficientDataException, ErrorResponseException, IOException, NoSuchAlgorithmException, InvalidKeyException, InvalidResponseException, XmlParserException, InternalException;
 }

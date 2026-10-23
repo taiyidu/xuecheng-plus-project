@@ -58,6 +58,7 @@ public class BigFilesController {
     @RequestParam("fileName") String fileName,
     @RequestParam("chunkTotal") int chunkTotal) throws Exception {
         log.info("mergechunks fileMd5:{}, fileName:{}, chunkTotal:{}", fileMd5, fileName, chunkTotal);
-        return mediaFileService.mergechunks(fileMd5, fileName, chunkTotal);
+        Long companyId =1232141425L;
+        return mediaFileService.mergechunks(fileMd5, fileName, chunkTotal, companyId);
     }
 }
