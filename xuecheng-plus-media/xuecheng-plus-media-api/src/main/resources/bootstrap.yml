@@ -26,9 +26,13 @@ spring:
             refresh: true  # 开启动态刷新，nacos改配置不用重启项目
 #  profiles:
 #    active: dev
-aliyun:
-  oss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: ${OSS_ACCESS_KEY_ID}
-    access-key-secret: ${OSS_ACCESS_KEY_SECRET}
-    bucket-name: taiyidu
+#aliyun:
+#  oss:
+#    endpoint: oss-cn-beijing.aliyuncs.com
+#    access-key-id: ${OSS_ACCESS_KEY_ID}
+#    access-key-secret: ${OSS_ACCESS_KEY_SECRET}
+#    bucket-name: taiyidu
+
+
+
+
