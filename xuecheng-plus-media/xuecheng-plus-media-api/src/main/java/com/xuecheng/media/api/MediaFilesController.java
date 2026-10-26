@@ -1,5 +1,6 @@
 package com.xuecheng.media.api;
 
+import cn.hutool.core.bean.BeanUtil;
 import com.xuecheng.base.model.PageParams;
 import com.xuecheng.base.model.PageResult;
 import com.xuecheng.media.model.dto.QueryMediaParamsDto;
@@ -29,7 +30,11 @@ public class MediaFilesController {
     @ApiOperation("媒资列表查询接口")
     @PostMapping("/files")
     public PageResult<MediaFiles> list(PageParams pageParams, @RequestBody QueryMediaParamsDto queryMediaParamsDto){
+        log.info("query media files, pageParams:{}, queryMediaParamsDto:{}", pageParams, queryMediaParamsDto);
         Long companyId = 1232141425L;
+        if (pageParams == null || pageParams.getPageNo() == null || pageParams.getPageSize() == null){
+            pageParams = new PageParams(1L, 1000L);
+        }
         return mediaFileService.queryMediaFiels(companyId,pageParams,queryMediaParamsDto);
     }
 

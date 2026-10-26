@@ -1,8 +1,10 @@
 package com.xuecheng.content.api;
 
+import com.xuecheng.content.model.dto.BindTeachplanMediaDto;
 import com.xuecheng.content.model.dto.SaveTeachplan;
 import com.xuecheng.content.model.dto.TeachplanDto;
 import com.xuecheng.content.service.TeachplanService;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
@@ -61,5 +63,13 @@ public class TeachplanController {
     public void moveUp(@PathVariable Long id){
         log.info("moveUp:{}", id);
         teachplanService.moveUp(id);
+    }
+    /**
+     * 绑定视频课程数据接口
+     */
+    @PostMapping("/association/media")
+    public void associationMedia(@RequestBody BindTeachplanMediaDto bindTeachplanMediaDto){
+        log.info("bindTeachplanMedia teachplanId:{}", bindTeachplanMediaDto.getTeachplanId());
+        teachplanService.associationMedia(bindTeachplanMediaDto);
     }
 }
