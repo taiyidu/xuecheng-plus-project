@@ -34,6 +34,7 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
 
     private final CourseTeacherMapper courseTeacherMapper;
 
+
     @Override
     public PageResult<CourseBase> queryCourseBaseList(PageParams pageParams, QueryCourseParamsDto queryCourseParamsDto) {
         LambdaQueryWrapper<CourseBase> lambdaQueryWrapper = new LambdaQueryWrapper<>();
@@ -185,6 +186,12 @@ public class CourseBaseInfoServiceImpl implements CourseBaseInfoService {
         ShowCourseDto showCourseDto = new ShowCourseDto();
         BeanUtils.copyProperties(courseBase, showCourseDto);
         BeanUtils.copyProperties(courseMarket, showCourseDto);
+        CourseCategory mtObj = courseCategoryMapper.selectById(courseBase.getMt());
+        CourseCategory stObj = courseCategoryMapper.selectById(courseBase.getSt());
+        String mtname = mtObj.getName();
+        String stname = stObj.getName();
+        showCourseDto.setMtName(mtname);
+        showCourseDto.setStName(stname);
         return showCourseDto;
     }
 

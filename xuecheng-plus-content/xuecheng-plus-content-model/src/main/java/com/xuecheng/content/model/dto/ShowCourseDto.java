@@ -43,11 +43,13 @@ public class ShowCourseDto {
      * 大分类
      */
     private String mt;
+    private String mtName;
 
     /**
      * 小分类
      */
     private String st;
+    private String stName;
 
     /**
      * 课程等级
