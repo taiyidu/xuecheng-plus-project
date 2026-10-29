@@ -3,21 +3,17 @@ package com.xuecheng.content.service.impl;
 import cn.hutool.core.bean.BeanUtil;
 import com.alibaba.fastjson.JSON;
 import com.xuecheng.base.exception.XueChengPlusException;
-import com.xuecheng.content.mapper.CourseBaseMapper;
-import com.xuecheng.content.mapper.CourseCategoryMapper;
-import com.xuecheng.content.mapper.CourseMarketMapper;
-import com.xuecheng.content.mapper.CoursePublishPreMapper;
+import com.xuecheng.content.mapper.*;
 import com.xuecheng.content.model.dto.CourseBaseInfoDto;
 import com.xuecheng.content.model.dto.CoursePreviewDto;
 import com.xuecheng.content.model.dto.ShowCourseDto;
 import com.xuecheng.content.model.dto.TeachplanDto;
-import com.xuecheng.content.model.po.CourseBase;
-import com.xuecheng.content.model.po.CourseCategory;
-import com.xuecheng.content.model.po.CourseMarket;
-import com.xuecheng.content.model.po.CoursePublishPre;
+import com.xuecheng.content.model.po.*;
 import com.xuecheng.content.service.CourseBaseInfoService;
 import com.xuecheng.content.service.CoursePublishService;
 import com.xuecheng.content.service.TeachplanService;
+import com.xuecheng.messagesdk.model.po.MqMessage;
+import com.xuecheng.messagesdk.service.MqMessageService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -39,6 +35,8 @@ public class CoursePublishServiceImpl implements CoursePublishService {
     private final CourseMarketMapper courseMarketMapper;
     private final CoursePublishPreMapper coursePublishPreMapper;
     private final CourseBaseMapper courseBaseMapper;
+    private final CoursePublishMapper coursePublishMapper;
+    private final MqMessageService mqMessageService;
 
     @Override
     public CoursePreviewDto getCoursePreviewInfo(Long courseId) {
@@ -105,5 +103,45 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         CourseBase courseBase = courseBaseMapper.selectById(courseId);
         courseBase.setAuditStatus("202003");
         courseBaseMapper.updateById(courseBase);
+    }
+
+    /**
+     * 课程发布
+     * @param courseId
+     */
+    @Override
+    @Transactional
+    public void coursepublish(Long courseId,Long companyId) {
+        CoursePublishPre coursePublishPre = coursePublishPreMapper.selectById(courseId);
+        if (coursePublishPre == null){
+            throw new XueChengPlusException("课程不存在或者没有提交");
+        }
+        //状态
+        String status = coursePublishPre.getStatus();
+        //没有审核通过不允许发布
+        if(!status.equals("202004")){
+            throw new XueChengPlusException("课程未审核通过，请等待审核");
+        }
+        //向课程预发布表写数据
+        CoursePublish coursePublish = new CoursePublish();
+        BeanUtils.copyProperties(coursePublishPre,coursePublish);
+        //先查一下，有就更新，没有就新增
+        CoursePublish coursePublishInfo = coursePublishMapper.selectById(coursePublishPre.getId());
+        if (coursePublishInfo == null) {
+            coursePublishMapper.insert(coursePublish);
+        } else {
+            coursePublishMapper.updateById(coursePublish);
+        }
+        //向消息表写数据
+        saveCoursePublishMessage(courseId);
+        //将预发布表数据删除
+        coursePublishPreMapper.deleteById(courseId);
+    }
+
+    private void saveCoursePublishMessage(Long courseId) {
+        MqMessage mqMessage = mqMessageService.addMessage("course_publish", String.valueOf(courseId), null, null);
+        if(mqMessage==null){
+            throw new XueChengPlusException("消息表插入数据失败");
+        }
     }
 }
