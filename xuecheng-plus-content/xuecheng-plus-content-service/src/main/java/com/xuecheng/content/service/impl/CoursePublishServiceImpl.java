@@ -77,8 +77,8 @@ public class CoursePublishServiceImpl implements CoursePublishService {
         //查询课程的基本信息，营销信息，计划信息等插入到课程的预发布表
         CoursePublishPre coursePublishPre = new CoursePublishPre();
         BeanUtils.copyProperties(courseBaseInfo,coursePublishPre);
-        log.info("courseBaseInfo:{}", courseBaseInfo);
-        log.info("coursePublishPre:{}", coursePublishPre);
+//        log.info("courseBaseInfo:{}", courseBaseInfo);
+//        log.info("coursePublishPre:{}", coursePublishPre);
 
         //设置机构id
         coursePublishPre.setCompanyId(companyId);

@@ -33,7 +33,7 @@ public interface MediaFileService {
 */
     PageResult<MediaFiles> queryMediaFiels(Long companyId,PageParams pageParams, QueryMediaParamsDto queryMediaParamsDto);
 
-    UploadFileResultDto uploadFile(MultipartFile upload,Long companyId) throws Exception;
+    UploadFileResultDto uploadFile(MultipartFile upload,Long companyId,String objName) throws Exception;
 
     /**
      * @description 检查文件是否存在

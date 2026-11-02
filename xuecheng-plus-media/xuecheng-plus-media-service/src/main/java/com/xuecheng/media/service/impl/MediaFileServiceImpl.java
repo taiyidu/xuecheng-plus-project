@@ -3,6 +3,7 @@ package com.xuecheng.media.service.impl;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.date.DateUtil;
+import com.aliyuncs.utils.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.j256.simplemagic.ContentInfo;
@@ -83,9 +84,17 @@ public class MediaFileServiceImpl implements MediaFileService {
         return mediaListResult;
     }
 
+    /**
+     * 上传文件到minio
+     * @param upload 上传的文件
+     * @param companyId 公司的id
+     * @param objName 如果传了就到相应的目录去存储，没有就存储到默认的目录（就是日期拼出来的）
+     * @return 上传文件结果
+     * @throws Exception
+     */
     @Override
     @Transactional
-    public UploadFileResultDto uploadFile(MultipartFile upload, Long companyId) throws Exception {
+    public UploadFileResultDto uploadFile(MultipartFile upload, Long companyId,String objName) throws Exception {
         // 1. 判断桶是否存在，不存在则创建
         boolean exists = minioClient.bucketExists(BucketExistsArgs.builder().bucket(bucketName).build());
         if (!exists) {
@@ -95,9 +104,11 @@ public class MediaFileServiceImpl implements MediaFileService {
         // 2. 文件名md5防止重名
         String original = upload.getOriginalFilename();
         byte[] fileBytes = upload.getBytes();
-        String objName = DigestUtils.md5Hex(fileBytes);
 
-
+        if (StringUtils.isEmpty(objName)) {
+            //默认使用年月日去存储
+            objName = DigestUtils.md5Hex(fileBytes);
+        }
 
         // 4. 计算文件的 md5 作为文件id
         String fileMd5 = DigestUtils.md5Hex(fileBytes);

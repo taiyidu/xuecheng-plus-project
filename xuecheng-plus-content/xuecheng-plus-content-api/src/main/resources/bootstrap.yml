@@ -20,6 +20,9 @@ spring:
             - data-id: log.yaml
               group: xuecheng-plus-project
               refresh: true
+            - data-id: feign.yaml
+              group: xuecheng-plus-project
+              refresh: true
 
 
 #  datasource:

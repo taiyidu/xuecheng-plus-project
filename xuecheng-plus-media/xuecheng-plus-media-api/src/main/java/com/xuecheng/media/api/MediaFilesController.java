@@ -37,12 +37,13 @@ public class MediaFilesController {
         }
         return mediaFileService.queryMediaFiels(companyId,pageParams,queryMediaParamsDto);
     }
-
+    //上传图片接口
     @RequestMapping(value = "/upload/coursefile", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
-    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile upload) throws Exception {
+    public UploadFileResultDto upload(@RequestPart("filedata") MultipartFile upload,
+                                      @RequestParam(value= "objectName",required=false) String objName) throws Exception {
         log.info("upload file interface. file name:{}",upload.getOriginalFilename());
         Long companyId = 1232141425L;
-        UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(upload,companyId);
+        UploadFileResultDto uploadFileResultDto = mediaFileService.uploadFile(upload,companyId,objName);
         return uploadFileResultDto;
     }
 }
